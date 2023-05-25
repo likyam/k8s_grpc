@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package user.v1;
+
+option go_package = "likyam.cn/api/gen/go/proto/user/v1";
+
+import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
+import "google/api/annotations.proto";
+
+// UserService User service
+service UserService {
+    // Create a new user.
+    rpc CreateUser (CreateUserRequest) returns (User) {
+        option (google.api.http) = {
+            post: "/v1/user/add"
+            body: "*"
+        };
+    }
+
+    // Get user by user name.
+    rpc GetUser (GetUserRequest) returns (GetUserResponse) {
+        option (google.api.http) = {
+            post: "/v1/user/get";
+            body: "*"
+        };
+    }
+}
+
+
+message User {
+    uint64 user_id = 1;
+    string user_no = 2;
+    string user_name = 3;
+    string avatar = 4;
+    string phone_number = 5;
+    string email = 6;
+    string unionid = 7;
+    string openid = 8;
+    string miniapp_openid = 9;
+    google.protobuf.Timestamp add_time = 10;
+    google.protobuf.Timestamp update_time = 11;
+    bool is_delete = 12;
+}
+
+message ListUsersByIDsRequest {
+    repeated uint64 ids = 1;
+}
+
+message ListUsersByIDsResponse {
+    repeated User users = 1;
+}
+
+message GetUserRequest {
+    uint64 user_id = 1;
+}
+
+message GetUserResponse {
+    User user = 1;
+}
+
+message CreateUserRequest {
+  User user = 1;
+}
+
+message CreateUserResponse {
+  User user = 1;
+}
+
+message UpdateUserRequest {
+  User user = 1;
+}
+
+message UpdateUserResponse {
+  bool success = 1;
+}
+
+message DeleteUserRequest {
+  uint64 id = 1;
+}
+
+message DeleteUserResponse {
+  bool success = 1;
+}

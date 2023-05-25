@@ -1,0 +1,25 @@
+# Ignore binary files
+*.exe
+*.dll
+*.so
+*.dylib
+
+
+# Ignore vendor directory
+vendor/
+
+# Ignore IDE and editor files
+.vscode/
+.idea/
+
+# Ignore logs and data files
+*.log
+*.out
+*.dat
+
+# Ignore environment-specific files
+*.env
+
+api/gen/
+api/buf.lock
+*_gen.go

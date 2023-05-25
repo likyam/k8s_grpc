@@ -1,0 +1,10 @@
+# client
+client:
+  # user 客户端配置
+  userHost: 127.0.0.1
+  userPort: ":50051"
+
+  # user 客户端配置
+  orderHost: 127.0.0.1
+  orderPort: ":50052"
+
