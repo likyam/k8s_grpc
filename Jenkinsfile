@@ -12,7 +12,7 @@ pipeline{
     environment {
         //设置镜像版本
         //DEV_IMAGE_VERSION = "dev_${sh(script:'head -c 6 /dev/random | base64' , returnStdout: true)}"
-        DEV_IMAGE_VERSION = "v1.0.0""
+        DEV_IMAGE_VERSION = "v1.0.0"
 
         //镜像中心地址
         REGISTRY_URL = "registry.cn-guangzhou.aliyuncs.com"
