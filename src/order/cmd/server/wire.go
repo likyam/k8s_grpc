@@ -29,7 +29,7 @@ func InitServer(cfg string) (*Server, error) {
 		NewGrpcServer,
 		server.NewRunGroup,
 		server.NewLogger,
-		server.NewTrace,
+		//server.NewTrace,
 		// client
 		client.NewUserClient,
 	)

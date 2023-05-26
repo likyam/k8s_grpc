@@ -16,7 +16,6 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/oklog/run"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
-	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"gorm.io/gorm"
@@ -34,7 +33,7 @@ type Server struct {
 	httpServer *http.Server
 	grpcServer *grpc.Server
 	db         *gorm.DB
-	trace      *sdktrace.TracerProvider
+	//trace      *sdktrace.TracerProvider
 }
 
 // NewServer 实例化 Server
@@ -46,7 +45,7 @@ func NewServer(
 	httpServer *http.Server,
 	grpcServer *grpc.Server,
 	db *gorm.DB,
-	trace *sdktrace.TracerProvider,
+	// trace *sdktrace.TracerProvider,
 ) *Server {
 	return &Server{
 		repo:       repo,
@@ -56,7 +55,7 @@ func NewServer(
 		httpServer: httpServer,
 		grpcServer: grpcServer,
 		db:         db,
-		trace:      trace,
+		//trace:      trace,
 	}
 }
 
@@ -160,11 +159,11 @@ func Run(cfg string) {
 	}
 
 	// 上报链路 trace 数据
-	defer func() {
-		if err = initServer.trace.Shutdown(context.Background()); err != nil {
-			_ = level.Info(initServer.logger).Log("msg", "shutdown trace provider failed", "err", err)
-		}
-	}()
+	//defer func() {
+	//	if err = initServer.trace.Shutdown(context.Background()); err != nil {
+	//		_ = level.Info(initServer.logger).Log("msg", "shutdown trace provider failed", "err", err)
+	//	}
+	//}()
 
 	initServer.RunServer()
 
