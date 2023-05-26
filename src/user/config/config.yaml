@@ -40,6 +40,6 @@ redis:
 
 # tracer
 trace:
-  tracerName: "user-service-tracer"
-  serviceName: "user-service"
+  tracerName: "user-server-tracer"
+  serviceName: "user-server"
   endPoint: "otel-collector.otel:4317"
