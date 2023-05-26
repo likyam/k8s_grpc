@@ -20,6 +20,3 @@ vendor/
 # Ignore environment-specific files
 *.env
 
-api/gen/
-api/buf.lock
-*_gen.go
