@@ -43,7 +43,7 @@ func (s *Server) GetOrderById(ctx context.Context, re *orderPBV1.GetOrderByIdReq
 	}
 	user, err := s.userClient.GetUser(ctx, &userPBV1.GetUserRequest{UserId: re.GetUserId()})
 	if err != nil {
-		return nil, errors.New("用户不存在")
+		return nil, err
 	}
 	if user == nil {
 		return nil, errors.New("用户不存在")
