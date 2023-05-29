@@ -5,7 +5,7 @@ import (
 	"likyam.cn/src/order/cmd/server"
 )
 
-var cfg = flag.String("config", "src/order/config/config.yaml", "config file location")
+var cfg = flag.String("config", "config/config.yaml", "config file location")
 
 // main
 func main() {

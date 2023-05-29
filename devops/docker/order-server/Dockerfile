@@ -14,6 +14,8 @@ ADD go.mod .
 ADD go.sum .
 RUN go mod download
 COPY . .
+COPY src/common/config/client.yaml /app/config/client.yaml
+COPY src/order/config/config.yaml /app/config/config.yaml
 RUN go build -ldflags="-s -w" -o /app/main src/order/cmd/main.go
 
 
@@ -24,6 +26,6 @@ COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /usr/share/zoneinfo/Asia/S
 ENV TZ Asia/Shanghai
 
 WORKDIR /app
-COPY --from=builder /app/main /app/main
+COPY --from=builder /app /app
 
 CMD ["./main"]

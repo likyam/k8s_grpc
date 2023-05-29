@@ -22,34 +22,34 @@ func NewConfig(cfg string) *Config {
 	//	panic("load config file failed.config file can not be empty.")
 	//}
 	//
-	//viper.SetConfigFile(cfg)
+	//v.SetConfigFile(cfg)
 	//
 	//// Read config file
-	//if err := viper.ReadInConfig(); err != nil {
+	//if err := v.ReadInConfig(); err != nil {
 	//	panic("read config failed.[ERROR]=>" + err.Error())
 	//}
 	//
 	//// 在读取第一个配置文件后，你可以继续读取其他配置文件
-	//viper.SetConfigFile("config2.yaml")
-	//if err := viper.MergeInConfig(); err != nil {
+	//v.SetConfigFile("config2.yaml")
+	//if err := v.MergeInConfig(); err != nil {
 	//	fmt.Printf("无法读取配置文件: %v\n", err)
 	//	return nil
 	//}
 	// 创建一个新的 Viper 实例
-	viper := viper.New()
+	v := viper.New()
 
 	// 设置要读取的配置文件的文件名（可以是相对路径或绝对路径）
-	viper.SetConfigFile(cfg)
+	v.SetConfigFile(cfg)
 
 	// 读取配置文件
-	if err := viper.ReadInConfig(); err != nil {
+	if err := v.ReadInConfig(); err != nil {
 		fmt.Printf("无法读取配置文件: %v\n", err)
 		return nil
 	}
 
 	// 在读取第一个配置文件后，你可以继续读取其他配置文件
-	viper.SetConfigFile("/Users/likyam/GoProjects/ygrpc/src/common/config/client.yaml")
-	if err := viper.MergeInConfig(); err != nil {
+	v.SetConfigFile("config/client.yaml")
+	if err := v.MergeInConfig(); err != nil {
 		fmt.Printf("无法读取配置文件: %v\n", err)
 		return nil
 	}
@@ -57,7 +57,7 @@ func NewConfig(cfg string) *Config {
 	conf := &Config{}
 
 	// Assign the overloaded configuration to the global
-	if err := viper.Unmarshal(conf); err != nil {
+	if err := v.Unmarshal(conf); err != nil {
 		panic("assign config failed.[ERROR]=>" + err.Error())
 	}
 	fmt.Println(conf)
