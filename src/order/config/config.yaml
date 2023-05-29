@@ -2,13 +2,13 @@
 grpc:
   host: ""
   port: ":50052"
-  name: "user-grpc"
+  name: "order-grpc"
 
 # http 配置
 http:
   host: ""
   port: ":9002"
-  name: "user-http"
+  name: "order-http"
 
 # database config
 database:
