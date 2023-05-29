@@ -2,6 +2,7 @@ package client
 
 import (
 	"context"
+	"fmt"
 	userPBV1 "likyam.cn/api/gen/go/proto/user/v1"
 	"likyam.cn/src/common/config"
 	"time"
@@ -14,7 +15,7 @@ import (
 func NewUserClient(conf *config.Config) (userPBV1.UserServiceClient, error) {
 
 	serverAddress := conf.Client.UserHost + conf.Client.UserPort
-
+	fmt.Println(serverAddress)
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 
 	defer cancel()
