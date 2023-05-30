@@ -1,10 +1,10 @@
 # client
 client:
   # user 客户端配置
-  userHost: user-server
+  userHost: user-service
   userPort: ":50051"
 
   # user 客户端配置
-  orderHost: order-server
+  orderHost: order-service
   orderPort: ":50052"
 
