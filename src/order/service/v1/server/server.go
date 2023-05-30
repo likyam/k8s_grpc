@@ -37,7 +37,7 @@ func NewServer(
 }
 
 func (s *Server) GetOrderById(ctx context.Context, re *orderPBV1.GetOrderByIdRequest) (*orderPBV1.GetOrderByIdResponse, error) {
-
+	fmt.Println(ctx)
 	orderData, err := s.repo.Info(re.GetOrderId())
 	if err != nil {
 		return nil, err

@@ -15,7 +15,6 @@ import (
 	"github.com/go-kit/log/level"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/oklog/run"
-	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"gorm.io/gorm"
@@ -45,7 +44,7 @@ func NewServer(
 	httpServer *http.Server,
 	grpcServer *grpc.Server,
 	db *gorm.DB,
-	// trace *sdktrace.TracerProvider,
+	//trace *sdktrace.TracerProvider,
 ) *Server {
 	return &Server{
 		repo:       repo,
@@ -65,13 +64,13 @@ func NewGrpcServer(orderServer orderPBV1.OrderServiceServer) *grpc.Server {
 	grpcServer := grpc.NewServer(
 		grpc.ChainStreamInterceptor(
 			// otel 链路追踪
-			otelgrpc.StreamServerInterceptor(),
+			//otelgrpc.StreamServerInterceptor(),
 			// 鉴权中间件
 			auth.StreamServerInterceptor(server.AuthenticationInterceptor),
 		),
 		grpc.ChainUnaryInterceptor(
 			// otel 链路追踪
-			otelgrpc.UnaryServerInterceptor(),
+			//otelgrpc.UnaryServerInterceptor(),
 			// 鉴权中间件
 			auth.UnaryServerInterceptor(server.AuthenticationInterceptor),
 			// PGV 中间件
@@ -158,7 +157,7 @@ func Run(cfg string) {
 		panic("run initServer failed.[ERROR]=>" + err.Error())
 	}
 
-	// 上报链路 trace 数据
+	//上报链路 trace 数据
 	//defer func() {
 	//	if err = initServer.trace.Shutdown(context.Background()); err != nil {
 	//		_ = level.Info(initServer.logger).Log("msg", "shutdown trace provider failed", "err", err)
