@@ -3,6 +3,7 @@ package serverV1
 import (
 	"context"
 	"errors"
+	"fmt"
 	"github.com/go-kit/log"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	orderPBV1 "likyam.cn/api/gen/go/proto/order/v1"
@@ -43,6 +44,7 @@ func (s *Server) GetOrderById(ctx context.Context, re *orderPBV1.GetOrderByIdReq
 	}
 	user, err := s.userClient.GetUser(ctx, &userPBV1.GetUserRequest{UserId: re.GetUserId()})
 	if err != nil {
+		fmt.Println(err.Error())
 		return nil, err
 	}
 	if user == nil {
