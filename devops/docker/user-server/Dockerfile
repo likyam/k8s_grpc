@@ -2,7 +2,11 @@ FROM golang:alpine AS builder
 
 LABEL stage=gobuilder
 
-ENV CGO_ENABLED 0
+# 设置 $USER 环境变量
+ENV USER=docker
+
+ENV CGO_ENABLED 1
+
 ENV GOPROXY https://goproxy.cn,direct
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
@@ -24,6 +28,8 @@ FROM scratch
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /usr/share/zoneinfo/Asia/Shanghai
 ENV TZ Asia/Shanghai
+# 设置 $USER 环境变量
+ENV USER=docker
 
 WORKDIR /app
 COPY --from=builder /app /app
