@@ -30,6 +30,10 @@ func InitServer(cfg string) (*Server, error) {
 	}
 	orderServiceServer := serverV1.NewServer(repository, logger, configConfig, userServiceClient)
 	grpcServer := NewGrpcServer(orderServiceServer)
-	serverServer := NewServer(repository, configConfig, group, logger, httpServer, grpcServer, db)
+	tracerProvider, err := server.NewTrace(configConfig)
+	if err != nil {
+		return nil, err
+	}
+	serverServer := NewServer(repository, configConfig, group, logger, httpServer, grpcServer, db, tracerProvider)
 	return serverServer, nil
 }

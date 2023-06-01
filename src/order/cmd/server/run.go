@@ -3,6 +3,8 @@ package server
 import (
 	"context"
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/auth"
+	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
+	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 	"likyam.cn/src/common/config"
 	"likyam.cn/src/common/server"
 	serverV1 "likyam.cn/src/order/service/v1/dao"
@@ -32,7 +34,7 @@ type Server struct {
 	httpServer *http.Server
 	grpcServer *grpc.Server
 	db         *gorm.DB
-	//trace      *sdktrace.TracerProvider
+	trace      *sdktrace.TracerProvider
 }
 
 // NewServer 实例化 Server
@@ -44,7 +46,7 @@ func NewServer(
 	httpServer *http.Server,
 	grpcServer *grpc.Server,
 	db *gorm.DB,
-	//trace *sdktrace.TracerProvider,
+	trace *sdktrace.TracerProvider,
 ) *Server {
 	return &Server{
 		repo:       repo,
@@ -54,7 +56,7 @@ func NewServer(
 		httpServer: httpServer,
 		grpcServer: grpcServer,
 		db:         db,
-		//trace:      trace,
+		trace:      trace,
 	}
 }
 
@@ -64,13 +66,13 @@ func NewGrpcServer(orderServer orderPBV1.OrderServiceServer) *grpc.Server {
 	grpcServer := grpc.NewServer(
 		grpc.ChainStreamInterceptor(
 			// otel 链路追踪
-			//otelgrpc.StreamServerInterceptor(),
+			otelgrpc.StreamServerInterceptor(),
 			// 鉴权中间件
 			auth.StreamServerInterceptor(server.AuthenticationInterceptor),
 		),
 		grpc.ChainUnaryInterceptor(
 			// otel 链路追踪
-			//otelgrpc.UnaryServerInterceptor(),
+			otelgrpc.UnaryServerInterceptor(),
 			// 鉴权中间件
 			auth.UnaryServerInterceptor(server.AuthenticationInterceptor),
 			// PGV 中间件
@@ -158,11 +160,11 @@ func Run(cfg string) {
 	}
 
 	//上报链路 trace 数据
-	//defer func() {
-	//	if err = initServer.trace.Shutdown(context.Background()); err != nil {
-	//		_ = level.Info(initServer.logger).Log("msg", "shutdown trace provider failed", "err", err)
-	//	}
-	//}()
+	defer func() {
+		if err = initServer.trace.Shutdown(context.Background()); err != nil {
+			_ = level.Info(initServer.logger).Log("msg", "shutdown trace provider failed", "err", err)
+		}
+	}()
 
 	initServer.RunServer()
 

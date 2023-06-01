@@ -42,4 +42,4 @@ redis:
 trace:
   tracerName: "user-server-tracer"
   serviceName: "user-server"
-  endPoint: "otel-collector.otel:4317"
+  endPoint: "opentelemetry-collector.opentelemetry-system:4317"
