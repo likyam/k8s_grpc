@@ -2,7 +2,6 @@ package server
 
 import (
 	"context"
-	"fmt"
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/auth"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
@@ -157,7 +156,6 @@ func Run(cfg string) {
 
 	initServer, err := InitServer(cfg)
 	if err != nil {
-		fmt.Println(err)
 		panic("run initServer failed.[ERROR]=>" + err.Error())
 	}
 
