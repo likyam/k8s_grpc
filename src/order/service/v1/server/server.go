@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/go-kit/log"
+	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	orderPBV1 "likyam.cn/api/gen/go/proto/order/v1"
 	userPBV1 "likyam.cn/api/gen/go/proto/user/v1"
@@ -15,9 +16,11 @@ import (
 // Server Server struct
 type Server struct {
 	orderPBV1.UnimplementedOrderServiceServer
-	conf       *config.Config
-	repo       *dao.Repository
-	logger     log.Logger
+	conf   *config.Config
+	repo   *dao.Repository
+	logger log.Logger
+	trace  *sdktrace.TracerProvider
+
 	userClient userPBV1.UserServiceClient
 }
 
@@ -26,17 +29,23 @@ func NewServer(
 	repo *dao.Repository,
 	logger log.Logger,
 	conf *config.Config,
+	trace *sdktrace.TracerProvider,
+
 	userClient userPBV1.UserServiceClient,
 ) orderPBV1.OrderServiceServer {
 	return &Server{
-		conf:       conf,
-		repo:       repo,
-		logger:     logger,
+		conf:   conf,
+		repo:   repo,
+		logger: logger,
+		trace:  trace,
+
 		userClient: userClient,
 	}
 }
 
 func (s *Server) GetOrderById(ctx context.Context, re *orderPBV1.GetOrderByIdRequest) (*orderPBV1.GetOrderByIdResponse, error) {
+	ctx, span := s.trace.Tracer("order-service.rpc").Start(ctx, "order-service.rpc.GetOrderById")
+	defer span.End()
 	fmt.Println(ctx)
 	orderData, err := s.repo.Info(re.GetOrderId())
 	if err != nil {

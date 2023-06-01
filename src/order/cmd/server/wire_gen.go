@@ -24,16 +24,16 @@ func InitServer(cfg string) (*Server, error) {
 	group := server.NewRunGroup()
 	logger := server.NewLogger()
 	httpServer := NewHttpServer(configConfig)
-	userServiceClient, err := client.NewUserClient(configConfig)
-	if err != nil {
-		return nil, err
-	}
-	orderServiceServer := serverV1.NewServer(repository, logger, configConfig, userServiceClient)
-	grpcServer := NewGrpcServer(orderServiceServer)
 	tracerProvider, err := server.NewTrace(configConfig)
 	if err != nil {
 		return nil, err
 	}
+	userServiceClient, err := client.NewUserClient(configConfig)
+	if err != nil {
+		return nil, err
+	}
+	orderServiceServer := serverV1.NewServer(repository, logger, configConfig, tracerProvider, userServiceClient)
+	grpcServer := NewGrpcServer(orderServiceServer)
 	serverServer := NewServer(repository, configConfig, group, logger, httpServer, grpcServer, db, tracerProvider)
 	return serverServer, nil
 }
