@@ -2,7 +2,6 @@ package server
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"strconv"
 
@@ -113,7 +112,6 @@ func NewTrace(conf *config.Config) (*sdktrace.TracerProvider, error) {
 	)
 	traceExp, err := otlptrace.New(ctx, traceClient)
 	if err != nil {
-		fmt.Println(213213)
 		return nil, err
 	}
 
@@ -124,7 +122,6 @@ func NewTrace(conf *config.Config) (*sdktrace.TracerProvider, error) {
 		resource.WithHost(),
 		resource.WithAttributes(semconv.ServiceNameKey.String(conf.Trace.ServiceName)))
 	if err != nil {
-		fmt.Println(44444213213)
 		return nil, err
 	}
 
