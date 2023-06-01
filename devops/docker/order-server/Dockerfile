@@ -16,7 +16,7 @@ RUN go mod download
 COPY . .
 COPY src/common/config/client.yaml /app/config/client.yaml
 COPY src/order/config/config.yaml /app/config/config.yaml
-RUN CGO_ENABLED=0 go build -ldflags="-s -w" -o /app/main src/order/cmd/main.go
+RUN CGO_ENABLED=0 go build -ldflags "-s -w" -o /app/main src/order/cmd/main.go
 
 
 FROM scratch
