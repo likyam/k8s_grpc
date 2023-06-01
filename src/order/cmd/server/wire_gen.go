@@ -7,7 +7,6 @@
 package server
 
 import (
-	"fmt"
 	"likyam.cn/src/common/client"
 	"likyam.cn/src/common/config"
 	"likyam.cn/src/common/server"
@@ -27,14 +26,10 @@ func InitServer(cfg string) (*Server, error) {
 	httpServer := NewHttpServer(configConfig)
 	tracerProvider, err := server.NewTrace(configConfig)
 	if err != nil {
-		fmt.Println(1)
-		fmt.Println(err)
 		return nil, err
 	}
 	userServiceClient, err := client.NewUserClient(configConfig)
 	if err != nil {
-		fmt.Println(2)
-		fmt.Println(err)
 		return nil, err
 	}
 	orderServiceServer := serverV1.NewServer(repository, logger, configConfig, tracerProvider, userServiceClient)
