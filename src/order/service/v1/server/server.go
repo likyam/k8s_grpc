@@ -3,7 +3,6 @@ package serverV1
 import (
 	"context"
 	"errors"
-	"fmt"
 	"github.com/go-kit/log"
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -44,16 +43,12 @@ func NewServer(
 }
 
 func (s *Server) GetOrderById(ctx context.Context, re *orderPBV1.GetOrderByIdRequest) (*orderPBV1.GetOrderByIdResponse, error) {
-	ctx, span := s.trace.Tracer("order-service.rpc").Start(ctx, "order-service.rpc.GetOrderById")
-	defer span.End()
-	fmt.Println(ctx)
 	orderData, err := s.repo.Info(re.GetOrderId())
 	if err != nil {
 		return nil, err
 	}
 	user, err := s.userClient.GetUser(ctx, &userPBV1.GetUserRequest{UserId: re.GetUserId()})
 	if err != nil {
-		fmt.Println(err.Error())
 		return nil, err
 	}
 	if user == nil {

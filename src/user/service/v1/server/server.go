@@ -2,7 +2,6 @@ package serverV1
 
 import (
 	"context"
-	"fmt"
 	"github.com/go-kit/log"
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -32,9 +31,6 @@ func NewServer(
 }
 
 func (s *Server) GetUser(ctx context.Context, re *userPBV1.GetUserRequest) (*userPBV1.GetUserResponse, error) {
-	ctx, span := s.trace.Tracer("user-service.rpc").Start(ctx, "user-service.rpc.GetUser")
-	defer span.End()
-	fmt.Println(re.GetUserId())
 	userData, err := s.repo.Info(re.GetUserId())
 	if err != nil {
 		return nil, err
