@@ -2,6 +2,7 @@ package client
 
 import (
 	"context"
+	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	orderPBV1 "likyam.cn/api/gen/go/proto/order/v1"
 	"likyam.cn/src/common/config"
 	"time"
@@ -20,8 +21,11 @@ func NewOrderClient(conf *config.Config) (orderPBV1.OrderServiceClient, error) {
 	defer cancel()
 
 	conn, err := grpc.DialContext(
-		ctx, serverAddress,
+		ctx,
+		serverAddress,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithUnaryInterceptor(otelgrpc.UnaryClientInterceptor()),
+		grpc.WithStreamInterceptor(otelgrpc.StreamClientInterceptor()),
 	)
 
 	if err != nil {

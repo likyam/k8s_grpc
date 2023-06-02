@@ -3,6 +3,7 @@ package client
 import (
 	"context"
 	"fmt"
+	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	userPBV1 "likyam.cn/api/gen/go/proto/user/v1"
 	"likyam.cn/src/common/config"
 	"time"
@@ -21,8 +22,11 @@ func NewUserClient(conf *config.Config) (userPBV1.UserServiceClient, error) {
 	defer cancel()
 
 	conn, err := grpc.DialContext(
-		ctx, serverAddress,
+		ctx,
+		serverAddress,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithUnaryInterceptor(otelgrpc.UnaryClientInterceptor()),
+		grpc.WithStreamInterceptor(otelgrpc.StreamClientInterceptor()),
 	)
 
 	if err != nil {
