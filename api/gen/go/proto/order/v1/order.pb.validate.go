@@ -240,6 +240,208 @@ var _ interface {
 	ErrorName() string
 } = OrderValidationError{}
 
+// Validate checks the field values on HealthyRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *HealthyRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on HealthyRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in HealthyRequestMultiError,
+// or nil if none found.
+func (m *HealthyRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *HealthyRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return HealthyRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// HealthyRequestMultiError is an error wrapping multiple validation errors
+// returned by HealthyRequest.ValidateAll() if the designated constraints
+// aren't met.
+type HealthyRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m HealthyRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m HealthyRequestMultiError) AllErrors() []error { return m }
+
+// HealthyRequestValidationError is the validation error returned by
+// HealthyRequest.Validate if the designated constraints aren't met.
+type HealthyRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e HealthyRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e HealthyRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e HealthyRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e HealthyRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e HealthyRequestValidationError) ErrorName() string { return "HealthyRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e HealthyRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sHealthyRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = HealthyRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = HealthyRequestValidationError{}
+
+// Validate checks the field values on HealthyResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *HealthyResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on HealthyResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// HealthyResponseMultiError, or nil if none found.
+func (m *HealthyResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *HealthyResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Status
+
+	if len(errors) > 0 {
+		return HealthyResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// HealthyResponseMultiError is an error wrapping multiple validation errors
+// returned by HealthyResponse.ValidateAll() if the designated constraints
+// aren't met.
+type HealthyResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m HealthyResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m HealthyResponseMultiError) AllErrors() []error { return m }
+
+// HealthyResponseValidationError is the validation error returned by
+// HealthyResponse.Validate if the designated constraints aren't met.
+type HealthyResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e HealthyResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e HealthyResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e HealthyResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e HealthyResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e HealthyResponseValidationError) ErrorName() string { return "HealthyResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e HealthyResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sHealthyResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = HealthyResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = HealthyResponseValidationError{}
+
 // Validate checks the field values on CreateOrderRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

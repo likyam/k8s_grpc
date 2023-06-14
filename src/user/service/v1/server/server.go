@@ -53,3 +53,9 @@ func (s *Server) GetUser(ctx context.Context, re *userPBV1.GetUserRequest) (*use
 		User: userPb,
 	}, nil
 }
+
+func (s *Server) Healthy(ctx context.Context, re *userPBV1.HealthyRequest) (*userPBV1.HealthyResponse, error) {
+	return &userPBV1.HealthyResponse{
+		Status: 200,
+	}, nil
+}

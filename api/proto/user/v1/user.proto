@@ -25,6 +25,13 @@ service UserService {
             body: "*"
         };
     }
+    // Healthy
+    rpc Healthy (healthyRequest) returns (healthyResponse) {
+        option (google.api.http) = {
+            post: "/healthy";
+            body: "*"
+        };
+    }
 }
 
 
@@ -41,6 +48,13 @@ message User {
     google.protobuf.Timestamp add_time = 10;
     google.protobuf.Timestamp update_time = 11;
     bool is_delete = 12;
+}
+
+message healthyRequest {
+}
+
+message healthyResponse {
+    uint64 status = 1;
 }
 
 message ListUsersByIDsRequest {

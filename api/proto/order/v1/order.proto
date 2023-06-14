@@ -21,6 +21,13 @@ service OrderService {
       body: "*"
     };
   }
+  // Healthy
+  rpc Healthy (healthyRequest) returns (healthyResponse) {
+    option (google.api.http) = {
+      post: "/healthy";
+      body: "*"
+    };
+  }
 }
 
 message Order {
@@ -39,7 +46,12 @@ message Order {
   google.protobuf.Timestamp update_time = 13;
 }
 
+message healthyRequest {
+}
 
+message healthyResponse {
+  uint64 status = 1;
+}
 
 message CreateOrderRequest {
   Order order = 1;

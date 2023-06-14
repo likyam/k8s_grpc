@@ -16,6 +16,39 @@
     "application/json"
   ],
   "paths": {
+    "/healthy": {
+      "post": {
+        "summary": "Healthy",
+        "operationId": "UserService_Healthy",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1healthyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1healthyRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
     "/v1/user/add": {
       "post": {
         "summary": "Create a new user.",
@@ -178,6 +211,18 @@
         },
         "isDelete": {
           "type": "boolean"
+        }
+      }
+    },
+    "v1healthyRequest": {
+      "type": "object"
+    },
+    "v1healthyResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     }

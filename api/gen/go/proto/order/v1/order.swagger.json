@@ -16,6 +16,39 @@
     "application/json"
   ],
   "paths": {
+    "/healthy": {
+      "post": {
+        "summary": "Healthy",
+        "operationId": "OrderService_Healthy",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1healthyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1healthyRequest"
+            }
+          }
+        ],
+        "tags": [
+          "OrderService"
+        ]
+      }
+    },
     "/v1/order/add": {
       "post": {
         "operationId": "OrderService_CreateOrder",
@@ -198,6 +231,18 @@
         "updateTime": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "v1healthyRequest": {
+      "type": "object"
+    },
+    "v1healthyResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     }

@@ -9,6 +9,8 @@ public class UserOuterClassValidator {
 	public static io.envoyproxy.pgv.ValidatorImpl validatorFor(Class clazz) {
 		
 		if (clazz.equals(user.v1.UserOuterClass.User.class)) return new UserValidator();
+		if (clazz.equals(user.v1.UserOuterClass.healthyRequest.class)) return new HealthyRequestValidator();
+		if (clazz.equals(user.v1.UserOuterClass.healthyResponse.class)) return new HealthyResponseValidator();
 		if (clazz.equals(user.v1.UserOuterClass.ListUsersByIDsRequest.class)) return new ListUsersByIDsRequestValidator();
 		if (clazz.equals(user.v1.UserOuterClass.ListUsersByIDsResponse.class)) return new ListUsersByIDsResponseValidator();
 		if (clazz.equals(user.v1.UserOuterClass.GetUserRequest.class)) return new GetUserRequestValidator();
@@ -80,6 +82,34 @@ public class UserOuterClassValidator {
 			// Validate update_time
 			if (proto.hasUpdateTime()) index.validatorFor(proto.getUpdateTime()).assertValid(proto.getUpdateTime());
 	// no validation rules for IsDelete
+
+	
+	
+	}
+}
+/**
+	 * Validates {@code HealthyRequest} protobuf objects.
+	 */
+	public static class HealthyRequestValidator implements io.envoyproxy.pgv.ValidatorImpl<user.v1.UserOuterClass.healthyRequest> {
+	
+	
+
+	public void assertValid(user.v1.UserOuterClass.healthyRequest proto, io.envoyproxy.pgv.ValidatorIndex index) throws io.envoyproxy.pgv.ValidationException {
+	
+	
+	}
+}
+/**
+	 * Validates {@code HealthyResponse} protobuf objects.
+	 */
+	public static class HealthyResponseValidator implements io.envoyproxy.pgv.ValidatorImpl<user.v1.UserOuterClass.healthyResponse> {
+		
+	
+	
+	
+
+	public void assertValid(user.v1.UserOuterClass.healthyResponse proto, io.envoyproxy.pgv.ValidatorIndex index) throws io.envoyproxy.pgv.ValidationException {
+	// no validation rules for Status
 
 	
 	

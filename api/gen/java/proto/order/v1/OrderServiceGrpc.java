@@ -77,6 +77,37 @@ public final class OrderServiceGrpc {
     return getGetOrderByIdMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<order.v1.OrderOuterClass.healthyRequest,
+      order.v1.OrderOuterClass.healthyResponse> getHealthyMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "Healthy",
+      requestType = order.v1.OrderOuterClass.healthyRequest.class,
+      responseType = order.v1.OrderOuterClass.healthyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<order.v1.OrderOuterClass.healthyRequest,
+      order.v1.OrderOuterClass.healthyResponse> getHealthyMethod() {
+    io.grpc.MethodDescriptor<order.v1.OrderOuterClass.healthyRequest, order.v1.OrderOuterClass.healthyResponse> getHealthyMethod;
+    if ((getHealthyMethod = OrderServiceGrpc.getHealthyMethod) == null) {
+      synchronized (OrderServiceGrpc.class) {
+        if ((getHealthyMethod = OrderServiceGrpc.getHealthyMethod) == null) {
+          OrderServiceGrpc.getHealthyMethod = getHealthyMethod =
+              io.grpc.MethodDescriptor.<order.v1.OrderOuterClass.healthyRequest, order.v1.OrderOuterClass.healthyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Healthy"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  order.v1.OrderOuterClass.healthyRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  order.v1.OrderOuterClass.healthyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new OrderServiceMethodDescriptorSupplier("Healthy"))
+              .build();
+        }
+      }
+    }
+    return getHealthyMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -138,6 +169,16 @@ public final class OrderServiceGrpc {
         io.grpc.stub.StreamObserver<order.v1.OrderOuterClass.GetOrderByIdResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetOrderByIdMethod(), responseObserver);
     }
+
+    /**
+     * <pre>
+     * Healthy
+     * </pre>
+     */
+    default void healthy(order.v1.OrderOuterClass.healthyRequest request,
+        io.grpc.stub.StreamObserver<order.v1.OrderOuterClass.healthyResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getHealthyMethod(), responseObserver);
+    }
   }
 
   /**
@@ -182,6 +223,17 @@ public final class OrderServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetOrderByIdMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * Healthy
+     * </pre>
+     */
+    public void healthy(order.v1.OrderOuterClass.healthyRequest request,
+        io.grpc.stub.StreamObserver<order.v1.OrderOuterClass.healthyResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getHealthyMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -212,6 +264,16 @@ public final class OrderServiceGrpc {
     public order.v1.OrderOuterClass.GetOrderByIdResponse getOrderById(order.v1.OrderOuterClass.GetOrderByIdRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetOrderByIdMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Healthy
+     * </pre>
+     */
+    public order.v1.OrderOuterClass.healthyResponse healthy(order.v1.OrderOuterClass.healthyRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getHealthyMethod(), getCallOptions(), request);
     }
   }
 
@@ -246,10 +308,22 @@ public final class OrderServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetOrderByIdMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * Healthy
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<order.v1.OrderOuterClass.healthyResponse> healthy(
+        order.v1.OrderOuterClass.healthyRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getHealthyMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_ORDER = 0;
   private static final int METHODID_GET_ORDER_BY_ID = 1;
+  private static final int METHODID_HEALTHY = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -275,6 +349,10 @@ public final class OrderServiceGrpc {
         case METHODID_GET_ORDER_BY_ID:
           serviceImpl.getOrderById((order.v1.OrderOuterClass.GetOrderByIdRequest) request,
               (io.grpc.stub.StreamObserver<order.v1.OrderOuterClass.GetOrderByIdResponse>) responseObserver);
+          break;
+        case METHODID_HEALTHY:
+          serviceImpl.healthy((order.v1.OrderOuterClass.healthyRequest) request,
+              (io.grpc.stub.StreamObserver<order.v1.OrderOuterClass.healthyResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -308,6 +386,13 @@ public final class OrderServiceGrpc {
               order.v1.OrderOuterClass.GetOrderByIdRequest,
               order.v1.OrderOuterClass.GetOrderByIdResponse>(
                 service, METHODID_GET_ORDER_BY_ID)))
+        .addMethod(
+          getHealthyMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              order.v1.OrderOuterClass.healthyRequest,
+              order.v1.OrderOuterClass.healthyResponse>(
+                service, METHODID_HEALTHY)))
         .build();
   }
 
@@ -358,6 +443,7 @@ public final class OrderServiceGrpc {
               .setSchemaDescriptor(new OrderServiceFileDescriptorSupplier())
               .addMethod(getCreateOrderMethod())
               .addMethod(getGetOrderByIdMethod())
+              .addMethod(getHealthyMethod())
               .build();
         }
       }

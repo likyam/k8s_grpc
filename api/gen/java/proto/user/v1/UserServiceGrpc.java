@@ -80,6 +80,37 @@ public final class UserServiceGrpc {
     return getGetUserMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<user.v1.UserOuterClass.healthyRequest,
+      user.v1.UserOuterClass.healthyResponse> getHealthyMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "Healthy",
+      requestType = user.v1.UserOuterClass.healthyRequest.class,
+      responseType = user.v1.UserOuterClass.healthyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<user.v1.UserOuterClass.healthyRequest,
+      user.v1.UserOuterClass.healthyResponse> getHealthyMethod() {
+    io.grpc.MethodDescriptor<user.v1.UserOuterClass.healthyRequest, user.v1.UserOuterClass.healthyResponse> getHealthyMethod;
+    if ((getHealthyMethod = UserServiceGrpc.getHealthyMethod) == null) {
+      synchronized (UserServiceGrpc.class) {
+        if ((getHealthyMethod = UserServiceGrpc.getHealthyMethod) == null) {
+          UserServiceGrpc.getHealthyMethod = getHealthyMethod =
+              io.grpc.MethodDescriptor.<user.v1.UserOuterClass.healthyRequest, user.v1.UserOuterClass.healthyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Healthy"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  user.v1.UserOuterClass.healthyRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  user.v1.UserOuterClass.healthyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new UserServiceMethodDescriptorSupplier("Healthy"))
+              .build();
+        }
+      }
+    }
+    return getHealthyMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -150,6 +181,16 @@ public final class UserServiceGrpc {
         io.grpc.stub.StreamObserver<user.v1.UserOuterClass.GetUserResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetUserMethod(), responseObserver);
     }
+
+    /**
+     * <pre>
+     * Healthy
+     * </pre>
+     */
+    default void healthy(user.v1.UserOuterClass.healthyRequest request,
+        io.grpc.stub.StreamObserver<user.v1.UserOuterClass.healthyResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getHealthyMethod(), responseObserver);
+    }
   }
 
   /**
@@ -206,6 +247,17 @@ public final class UserServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetUserMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * Healthy
+     * </pre>
+     */
+    public void healthy(user.v1.UserOuterClass.healthyRequest request,
+        io.grpc.stub.StreamObserver<user.v1.UserOuterClass.healthyResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getHealthyMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -245,6 +297,16 @@ public final class UserServiceGrpc {
     public user.v1.UserOuterClass.GetUserResponse getUser(user.v1.UserOuterClass.GetUserRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetUserMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Healthy
+     * </pre>
+     */
+    public user.v1.UserOuterClass.healthyResponse healthy(user.v1.UserOuterClass.healthyRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getHealthyMethod(), getCallOptions(), request);
     }
   }
 
@@ -288,10 +350,22 @@ public final class UserServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetUserMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * Healthy
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<user.v1.UserOuterClass.healthyResponse> healthy(
+        user.v1.UserOuterClass.healthyRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getHealthyMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_USER = 0;
   private static final int METHODID_GET_USER = 1;
+  private static final int METHODID_HEALTHY = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -317,6 +391,10 @@ public final class UserServiceGrpc {
         case METHODID_GET_USER:
           serviceImpl.getUser((user.v1.UserOuterClass.GetUserRequest) request,
               (io.grpc.stub.StreamObserver<user.v1.UserOuterClass.GetUserResponse>) responseObserver);
+          break;
+        case METHODID_HEALTHY:
+          serviceImpl.healthy((user.v1.UserOuterClass.healthyRequest) request,
+              (io.grpc.stub.StreamObserver<user.v1.UserOuterClass.healthyResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -350,6 +428,13 @@ public final class UserServiceGrpc {
               user.v1.UserOuterClass.GetUserRequest,
               user.v1.UserOuterClass.GetUserResponse>(
                 service, METHODID_GET_USER)))
+        .addMethod(
+          getHealthyMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              user.v1.UserOuterClass.healthyRequest,
+              user.v1.UserOuterClass.healthyResponse>(
+                service, METHODID_HEALTHY)))
         .build();
   }
 
@@ -400,6 +485,7 @@ public final class UserServiceGrpc {
               .setSchemaDescriptor(new UserServiceFileDescriptorSupplier())
               .addMethod(getCreateUserMethod())
               .addMethod(getGetUserMethod())
+              .addMethod(getHealthyMethod())
               .build();
         }
       }

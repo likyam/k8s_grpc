@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	OrderService_CreateOrder_FullMethodName  = "/order.v1.OrderService/CreateOrder"
 	OrderService_GetOrderById_FullMethodName = "/order.v1.OrderService/GetOrderById"
+	OrderService_Healthy_FullMethodName      = "/order.v1.OrderService/Healthy"
 )
 
 // OrderServiceClient is the client API for OrderService service.
@@ -29,6 +30,8 @@ const (
 type OrderServiceClient interface {
 	CreateOrder(ctx context.Context, in *CreateOrderRequest, opts ...grpc.CallOption) (*CreateOrderResponse, error)
 	GetOrderById(ctx context.Context, in *GetOrderByIdRequest, opts ...grpc.CallOption) (*GetOrderByIdResponse, error)
+	// Healthy
+	Healthy(ctx context.Context, in *HealthyRequest, opts ...grpc.CallOption) (*HealthyResponse, error)
 }
 
 type orderServiceClient struct {
@@ -57,12 +60,23 @@ func (c *orderServiceClient) GetOrderById(ctx context.Context, in *GetOrderByIdR
 	return out, nil
 }
 
+func (c *orderServiceClient) Healthy(ctx context.Context, in *HealthyRequest, opts ...grpc.CallOption) (*HealthyResponse, error) {
+	out := new(HealthyResponse)
+	err := c.cc.Invoke(ctx, OrderService_Healthy_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrderServiceServer is the server API for OrderService service.
 // All implementations must embed UnimplementedOrderServiceServer
 // for forward compatibility
 type OrderServiceServer interface {
 	CreateOrder(context.Context, *CreateOrderRequest) (*CreateOrderResponse, error)
 	GetOrderById(context.Context, *GetOrderByIdRequest) (*GetOrderByIdResponse, error)
+	// Healthy
+	Healthy(context.Context, *HealthyRequest) (*HealthyResponse, error)
 	mustEmbedUnimplementedOrderServiceServer()
 }
 
@@ -75,6 +89,9 @@ func (UnimplementedOrderServiceServer) CreateOrder(context.Context, *CreateOrder
 }
 func (UnimplementedOrderServiceServer) GetOrderById(context.Context, *GetOrderByIdRequest) (*GetOrderByIdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrderById not implemented")
+}
+func (UnimplementedOrderServiceServer) Healthy(context.Context, *HealthyRequest) (*HealthyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Healthy not implemented")
 }
 func (UnimplementedOrderServiceServer) mustEmbedUnimplementedOrderServiceServer() {}
 
@@ -125,6 +142,24 @@ func _OrderService_GetOrderById_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrderService_Healthy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HealthyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServiceServer).Healthy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrderService_Healthy_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServiceServer).Healthy(ctx, req.(*HealthyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrderService_ServiceDesc is the grpc.ServiceDesc for OrderService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -139,6 +174,10 @@ var OrderService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetOrderById",
 			Handler:    _OrderService_GetOrderById_Handler,
+		},
+		{
+			MethodName: "Healthy",
+			Handler:    _OrderService_Healthy_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

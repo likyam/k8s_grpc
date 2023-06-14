@@ -71,3 +71,9 @@ func (s *Server) GetOrderById(ctx context.Context, re *orderPBV1.GetOrderByIdReq
 		Order: order,
 	}, nil
 }
+
+func (s *Server) Healthy(ctx context.Context, re *orderPBV1.HealthyRequest) (*orderPBV1.HealthyResponse, error) {
+	return &orderPBV1.HealthyResponse{
+		Status: 200,
+	}, nil
+}
