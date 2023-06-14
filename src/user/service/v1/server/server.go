@@ -2,6 +2,7 @@ package serverV1
 
 import (
 	"context"
+	"fmt"
 	"github.com/go-kit/log"
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -55,6 +56,7 @@ func (s *Server) GetUser(ctx context.Context, re *userPBV1.GetUserRequest) (*use
 }
 
 func (s *Server) Healthy(ctx context.Context, re *userPBV1.HealthyRequest) (*userPBV1.HealthyResponse, error) {
+	fmt.Println("healthy")
 	return &userPBV1.HealthyResponse{
 		Status: 200,
 	}, nil

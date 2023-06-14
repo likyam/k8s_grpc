@@ -3,6 +3,7 @@ package serverV1
 import (
 	"context"
 	"errors"
+	"fmt"
 	"github.com/go-kit/log"
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -73,6 +74,7 @@ func (s *Server) GetOrderById(ctx context.Context, re *orderPBV1.GetOrderByIdReq
 }
 
 func (s *Server) Healthy(ctx context.Context, re *orderPBV1.HealthyRequest) (*orderPBV1.HealthyResponse, error) {
+	fmt.Println("healthy")
 	return &orderPBV1.HealthyResponse{
 		Status: 200,
 	}, nil
