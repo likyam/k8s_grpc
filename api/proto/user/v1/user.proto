@@ -28,8 +28,7 @@ service UserService {
     // Healthy
     rpc Healthy (healthyRequest) returns (healthyResponse) {
         option (google.api.http) = {
-            post: "/healthy";
-            body: "*"
+            get: "/healthy";
         };
     }
 }

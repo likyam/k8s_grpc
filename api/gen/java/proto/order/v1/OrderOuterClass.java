@@ -5254,16 +5254,16 @@ public final class OrderOuterClass {
       "rderR\005order\"I\n\023GetOrderByIdRequest\022\031\n\010or" +
       "der_id\030\001 \001(\004R\007orderId\022\027\n\007user_id\030\002 \001(\004R\006" +
       "userId\"=\n\024GetOrderByIdResponse\022%\n\005order\030" +
-      "\001 \001(\0132\017.order.v1.OrderR\005order2\262\002\n\014OrderS" +
+      "\001 \001(\0132\017.order.v1.OrderR\005order2\257\002\n\014OrderS" +
       "ervice\022d\n\013CreateOrder\022\034.order.v1.CreateO" +
       "rderRequest\032\035.order.v1.CreateOrderRespon" +
       "se\"\030\202\323\344\223\002\022\"\r/v1/order/add:\001*\022g\n\014GetOrder" +
       "ById\022\035.order.v1.GetOrderByIdRequest\032\036.or" +
       "der.v1.GetOrderByIdResponse\"\030\202\323\344\223\002\022\"\r/v1" +
-      "/order/get:\001*\022S\n\007Healthy\022\030.order.v1.heal" +
-      "thyRequest\032\031.order.v1.healthyResponse\"\023\202" +
-      "\323\344\223\002\r\"\010/healthy:\001*B$Z\"likyam.cn/api/gen/" +
-      "go/proto/user/v1b\006proto3"
+      "/order/get:\001*\022P\n\007Healthy\022\030.order.v1.heal" +
+      "thyRequest\032\031.order.v1.healthyResponse\"\020\202" +
+      "\323\344\223\002\n\022\010/healthyB$Z\"likyam.cn/api/gen/go/" +
+      "proto/user/v1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

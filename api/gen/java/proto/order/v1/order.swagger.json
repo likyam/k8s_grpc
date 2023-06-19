@@ -17,7 +17,7 @@
   ],
   "paths": {
     "/healthy": {
-      "post": {
+      "get": {
         "summary": "Healthy",
         "operationId": "OrderService_Healthy",
         "responses": {
@@ -34,16 +34,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1healthyRequest"
-            }
-          }
-        ],
         "tags": [
           "OrderService"
         ]
@@ -233,9 +223,6 @@
           "format": "date-time"
         }
       }
-    },
-    "v1healthyRequest": {
-      "type": "object"
     },
     "v1healthyResponse": {
       "type": "object",

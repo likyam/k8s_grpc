@@ -8801,15 +8801,15 @@ public final class UserOuterClass {
       ".\n\022UpdateUserResponse\022\030\n\007success\030\001 \001(\010R\007" +
       "success\"#\n\021DeleteUserRequest\022\016\n\002id\030\001 \001(\004" +
       "R\002id\".\n\022DeleteUserResponse\022\030\n\007success\030\001 " +
-      "\001(\010R\007success2\211\002\n\013UserService\022P\n\nCreateUs" +
+      "\001(\010R\007success2\206\002\n\013UserService\022P\n\nCreateUs" +
       "er\022\032.user.v1.CreateUserRequest\032\r.user.v1" +
       ".User\"\027\202\323\344\223\002\021\"\014/v1/user/add:\001*\022U\n\007GetUse" +
       "r\022\027.user.v1.GetUserRequest\032\030.user.v1.Get" +
-      "UserResponse\"\027\202\323\344\223\002\021\"\014/v1/user/get:\001*\022Q\n" +
+      "UserResponse\"\027\202\323\344\223\002\021\"\014/v1/user/get:\001*\022N\n" +
       "\007Healthy\022\027.user.v1.healthyRequest\032\030.user" +
-      ".v1.healthyResponse\"\023\202\323\344\223\002\r\"\010/healthy:\001*" +
-      "B$Z\"likyam.cn/api/gen/go/proto/user/v1b\006" +
-      "proto3"
+      ".v1.healthyResponse\"\020\202\323\344\223\002\n\022\010/healthyB$Z" +
+      "\"likyam.cn/api/gen/go/proto/user/v1b\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
